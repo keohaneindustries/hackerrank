@@ -243,7 +243,6 @@ def read_list():
         elif item[0] == "remove":
             l.remove(int(item[1]))
             
-            
 def game_of_stones():
     import math
     import os
@@ -282,5 +281,54 @@ def game_of_stones():
     
     return
 
+def towers():
+    
+    return
+
+def run_binomial():
+    import math
+    
+    def _binomial(p, n, hits):
+        odds = 0
+        for x in hits:
+            f = math.factorial(n) / (math.factorial(x) * math.factorial((n - x)))
+            odds += f * ((p) ** (x)) * ((1 - p) ** (n - x))
+        return odds
+
+    arr = list(map(int, input().split()))
+    p = float(arr[0]) / 100
+    n = arr[1]
+
+    hits_atmost = list(range(0, 2 + 1))
+    hits_atleast = list(range(0, 1 + 1))
+    odds_atmost = _binomial(p, n, hits_atmost)
+    odds_atleast = (1 - _binomial(p, n, hits_atleast))
+    print('%.3f' % odds_atmost)
+    print('%.3f' % odds_atleast)
+    
+    return
+
+def run_negative_binomial():
+    import math
+    
+    def _negative_binomial(x, p, hits):
+        odds = 0
+        for n in hits:
+            f = math.factorial(n - 1) / (math.factorial(x - 1) * math.factorial(((n - 1) - (x - 1))))
+            odds += f * ((p) ** (x)) * ((1 - p) ** (n - x))
+        return odds
+
+    arr = list(map(int, input().split()))
+    p = float(arr[0]) / float(arr[1])
+    x = 1
+    n = int(input())
+    hits_exactly = list(range(n, n + 1))
+
+    odds_exactly = _negative_binomial(x, p, hits_exactly)
+
+    print('%.3f' % odds_exactly)
+    
+    return
+
 if __name__ == '__main__':
-    game_of_stones()
+    run_negative_binomial()
