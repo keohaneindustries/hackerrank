@@ -343,5 +343,11 @@ def run_negative_binomial():
     
     return
 
-if __name__ == '__main__':
+
+def main():
     run_negative_binomial()
+    return
+
+
+if __name__ == '__main__':
+    main()
