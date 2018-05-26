@@ -9,7 +9,6 @@
 # from itertools import product
 
 
-
 def maximize_it():
     def _maximize(m, el):
 
@@ -31,6 +30,7 @@ def maximize_it():
     
     print(_maximize(m, el))
 
+
 def basic_statistics1():
     # import numpy as np
     import pandas as pd
@@ -40,16 +40,19 @@ def basic_statistics1():
     print(ser.mode()[0])
     return
 
+
 def basic_statistics2_weighted_mean_v1():
     import pandas as pd
     _, ser, wgts = int(input()), pd.Series(list(map(int, input().split()))), pd.Series(list(map(int, input().split())))
     print('%.1f' % (sum(ser*wgts)/sum(wgts)))
     return
 
+
 def basic_statistics2_weighted_mean_v2():
     n, ser, wgts = int(input()), list(map(int, input().split())), list(map(int, input().split()))
     print('%.1f' % (sum([ser[i] * wgts[i] for i in range(n)]) / sum(wgts)))
     return
+
 
 def arrays_DS():
     def _reverseArray(arr):
@@ -64,6 +67,7 @@ def arrays_DS():
     
     res = _reverseArray(arr)
     print(' '.join(map(str, res)))
+
 
 def arrays_2D_DS():
     def _array2D(arr):
@@ -86,6 +90,7 @@ def arrays_2D_DS():
     result = _array2D(arr)
     print(result)
     return
+
 
 def findthePoint():
     def _findPoint(px, py, qx, qy):
@@ -110,7 +115,8 @@ def findthePoint():
     
         print(' '.join(map(str, result)))
     return
-    
+
+
 def numpy_arrays():
     import numpy
     def _arrays(arr):
@@ -127,6 +133,7 @@ def numpy_arrays():
     result = _arrays(arr)
     print(result)
 
+
 def postal_codes():
     regex_integer_in_range = r'\b\d\d\d\d\d\d\b'  # Do not delete 'r'.
     regex_alternating_repetitive_digit_pair = r'(?P<num>\d)(?=\d\1)'  # Do not delete 'r'.
@@ -138,6 +145,7 @@ def postal_codes():
     print(bool(re.match(regex_integer_in_range, P))
           and len(re.findall(regex_alternating_repetitive_digit_pair, P)) < 2)
     return
+
 
 def complex_numbers():
     import math
@@ -187,6 +195,7 @@ def complex_numbers():
     print(*map(str, [x + y, x - y, x * y, x / y, x.mod(), y.mod()]), sep='\n')
     return
 
+
 def torsional_angle():
     import math
     class Points(object):
@@ -222,6 +231,7 @@ def torsional_angle():
     
     return
 
+
 def read_list():
     n = int(input())
     l=[]
@@ -242,7 +252,8 @@ def read_list():
             l.append(int(item[1]))
         elif item[0] == "remove":
             l.remove(int(item[1]))
-            
+
+
 def game_of_stones():
     import math
     import os
@@ -281,9 +292,10 @@ def game_of_stones():
     
     return
 
+
 def towers():
-    
     return
+
 
 def run_binomial():
     import math
@@ -307,6 +319,7 @@ def run_binomial():
     print('%.3f' % odds_atleast)
     
     return
+
 
 def run_negative_binomial():
     import math
