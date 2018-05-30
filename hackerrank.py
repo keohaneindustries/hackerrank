@@ -344,8 +344,32 @@ def run_negative_binomial():
     return
 
 
+def n_choose_x(n,x):
+    import math
+    return math.factorial(n) / (math.factorial(x) * math.factorial((n - x)))
+
+
+def run_poisson():
+    import math
+    def _poisson(lam,ks):
+        odds = 0
+        for k in ks:
+            odds += lam**k * math.e ** (-lam) / math.factorial(k)
+        return odds
+
+    lam = float(input())
+    k = int(input())
+    hits_exactly = list(range(k, k + 1))
+
+    odds_exactly = _poisson(lam, hits_exactly)
+
+    print('%.3f' % odds_exactly)
+
+    return
+
+
 def main():
-    run_negative_binomial()
+    run_poisson()
     return
 
 
