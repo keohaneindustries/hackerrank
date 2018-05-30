@@ -344,6 +344,29 @@ def run_negative_binomial():
     return
 
 
+def get_even_odd_strings():
+    
+    def _even_odd_strings(s):
+        s1 = []
+        s2 = []
+        for i, c in enumerate(s):
+            if i == 0:
+                s1.append(c)
+            elif i % 2 == 1:
+                s2.append(c)
+            else:
+                s1.append(c)
+        snew = " ".join(["".join(s1), "".join(s2)])
+        return snew
+    
+    n = int(input())
+    for _ in range(n):
+        s = input().rstrip()
+        print(_even_odd_strings(s))
+    
+    return
+    
+
 def n_choose_x(n,x):
     import math
     return math.factorial(n) / (math.factorial(x) * math.factorial((n - x)))
@@ -368,8 +391,54 @@ def run_poisson():
     return
 
 
+def run_poisson2():
+    import math
+    def _poisson(lam,ks):
+        odds = 0
+        for k in ks:
+            odds += lam**k * math.e ** (-lam) / math.factorial(k)
+        return odds
+    
+    def _poisson_squared(lam):
+        return lam + lam**2
+    
+    def _exp_cost(a0, a1,lam):
+        return a0+a1*_poisson_squared(lam)
+    
+    lams = list(map(float,input().split()))
+    lama = lams[0]
+    lamb = lams[1]
+    print(_exp_cost(160,40,lama))
+    print(_exp_cost(128,40,lamb))
+    
+    return
+
+
+def run_normal():
+    import math
+    
+    def _normal_t(u,sd,t):
+        a = (1/2)*(1+(sd*math.sqrt(2*math.pi)))
+        b = math.e ** (-((t-u)**2/(2*sd**2)))
+        odds = a * b
+        return odds
+    
+    nd = list(map(float,input().split()))
+    u = nd[0]
+    sd = nd[1]
+    t = float(input())
+    ci = list(map(float,input().split()))
+    ci_min = ci[0]
+    ci_max = ci[1]
+    
+    print('%.3f' % _normal_t(u,sd,t))
+    print('%.3f' % (_normal_t(u,sd,ci_min)-_normal_t(u,sd,ci_max)))
+    
+    return
+
+
 def main():
-    run_poisson()
+    run_normal()
     return
 
 
