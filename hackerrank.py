@@ -437,8 +437,171 @@ def run_normal():
     return
 
 
+def run_normal2():
+    import math
+    def _run_normal(u,sd,t):
+        return (1/2)*(1+math.erf((t-u) /(sd*math.sqrt(2))))
+
+    params = list(map(float,input().split()))
+
+    u = params[0]
+    sd = params[1]
+    t_high = float(input())
+    t_fail = float(input())
+
+    print('%.2f' % ((1-_run_normal(u,sd,t_high))*100))
+    print('%.2f' % ((1-_run_normal(u,sd,t_fail))*100))
+    print('%.2f' % ((_run_normal(u,sd,t_fail))*100))
+
+    return
+
+
+def clt1():
+    import math
+    def _run_normal(u,sd,t):
+        return (1/2)*(1+math.erf((t-u) /(sd*math.sqrt(2))))
+
+    t_fail = float(input())
+    n = float(input())
+    u = float(input())
+    sd = float(input())
+
+    print('%.4f' % _run_normal(u*n,sd*math.sqrt(n),t_fail))
+
+    return
+
+
+def clt2():
+    import math
+    def _run_normal(u,sd,t):
+        return (1/2)*(1+math.erf((t-u) /(sd*math.sqrt(2))))
+
+    t_fail = float(input())
+    n = float(input())
+    u = float(input())
+    sd = float(input())
+
+    print('%.4f' % _run_normal(u*n,sd*math.sqrt(n),t_fail))
+
+    return
+
+
+def clt3():
+    import math
+    
+    n = float(input())
+    mean = float(input())
+    std = float(input())
+    ci = float(input())
+    zScore = float(input())
+    marginOfError = zScore * std / math.sqrt(n);
+    print(mean - marginOfError)
+    print(mean + marginOfError)
+    return
+
+
+def corr1():
+    import math
+    
+    def _get_sd(l, u):
+        sd = math.sqrt(sum([(l[i] - u) ** 2 for i in range(len(l))]) / (len(l)))
+        return sd
+    
+    def _get_corr(n, x_l, y_l):
+        x_u = sum(x_l) / n
+        y_u = sum(y_l) / n
+        
+        x_sd = _get_sd(x_l, x_u)
+        y_sd = _get_sd(y_l, y_u)
+        
+        num = sum([(x_l[i] - x_u) * (y_l[i] - y_u) for i in range(n)])
+        denom = (n * x_sd * y_sd)
+        return num / denom
+    
+    n = int(input())
+    x_l = list(map(float, input().split()))
+    y_l = list(map(float, input().split()))
+    
+    print('%.3f' % _get_corr(n, x_l, y_l))
+    
+    return
+
+
+def spearman_corr():
+    def _get_rank(X, n):
+        x_rank = dict((x, i + 1) for i, x in enumerate(sorted(set(X))))
+        return [x_rank[x] for x in X]
+    
+    n = int(input())
+    X = list(map(float, input().split()))
+    Y = list(map(float, input().split()))
+    
+    rx = _get_rank(X, n)
+    ry = _get_rank(Y, n)
+    
+    d = [(rx[i] - ry[i]) ** 2 for i in range(n)]
+    rxy = 1 - (6 * sum(d)) / (n * (n * n - 1))
+    
+    print('%.3f' % rxy)
+
+
+def MLR():
+    # import data
+    import numpy as np
+    
+    m, n = [int(i) for i in input().strip().split(' ')]
+    X = []
+    Y = []
+    for i in range(n):
+        data = input().strip().split(' ')
+        X.append(data[:m])
+        Y.append(data[m:])
+    q = int(input().strip())
+    X_new = []
+    for x in range(q):
+        X_new.append(input().strip().split(' '))
+    X = np.array(X, float)
+    Y = np.array(Y, float)
+    X_new = np.array(X_new, float)
+
+    # center
+    X_R = X - np.mean(X, axis=0)
+    Y_R = Y - np.mean(Y)
+
+    # calculate beta
+    beta = np.dot(np.linalg.inv(np.dot(X_R.T, X_R)), np.dot(X_R.T, Y_R))
+
+    # predict
+    X_new_R = X_new - np.mean(X, axis=0)
+    Y_new_R = np.dot(X_new_R, beta)
+    Y_new = Y_new_R + np.mean(Y)
+
+    # print
+    for i in Y_new:
+        print(round(float(i), 2))
+    return
+
+
+def LSR():
+    x = [95, 85, 80, 70, 60]
+    y = [85, 95, 70, 65, 70]
+    ax = sum(x) / len(x)
+    ay = sum(y) / len(y)
+    sx = 0
+    n = 0
+    d = 0
+    for i in range(len(x)):
+        n += (ax - x[i]) * (ay - y[i])
+        d += (ax - x[i]) ** 2
+    slope = (1.0 * n) / d
+    inter = ay - slope * ax
+    y = slope * 80 + inter
+    print(round(y, 3))
+    return
+
+
 def main():
-    run_normal()
+    LSR()
     return
 
 
