@@ -600,8 +600,43 @@ def LSR():
     return
 
 
+def binary():
+    n = int(input())
+    over = True
+    db = 1
+    digts = 1
+    while over:
+        if n <=db:
+            over = False
+        else:
+            db = db * 2
+            digts +=1
+    op = 0
+    rem = n
+    for i in range(digts):
+        cur = digts-i-1
+        dig = rem//(2**cur)
+        op += dig*(10**cur)
+        rem = rem % (2**cur)
+    
+    op=str(op)
+
+    streak = 0
+    max_streak = 0
+    for i in op:
+        if i =='1':
+            streak +=1
+            if streak>max_streak:
+                max_streak = streak
+        else:
+            streak = 0
+    
+    print(str(max_streak))
+    return
+
+
 def main():
-    LSR()
+    binary()
     return
 
 
