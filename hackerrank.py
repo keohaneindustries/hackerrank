@@ -813,8 +813,22 @@ def linked_lists():
     return
 
 
+def exceptions():
+    import sys
+    
+    S = input().strip()
+    
+    try:
+        i = int(S)
+        print(i)
+    except(ValueError):
+        print("Bad String")
+    
+    return
+
+
 def main():
-    linked_lists()
+    exceptions()
     return
 
 
