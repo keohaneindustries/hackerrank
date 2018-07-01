@@ -652,6 +652,7 @@ def hourglass():
     
     return
 
+
 def inheritance():
     ### START of fixed code
     class Person:
@@ -728,7 +729,6 @@ def abstract_classes():
             print("Author: "+ self.author)
             print("Price: "+ str(self.price))
 
-
     ### START of fixed code
     title = input()
     author = input()
@@ -771,8 +771,50 @@ def scope():
     return
 
 
+def linked_lists():
+    ### START of fixed code
+    class Node:
+    
+        def __init__(self, data):
+            self.data = data
+            self.next = None
+
+    class Solution:
+    
+        def display(self, head):
+            current = head
+            while current:
+                print(current.data, end=' ')
+                current = current.next
+        
+    ### END of fixed code
+        def insert(self, head, data):
+            if head is None:
+                idk = Node(data)
+                return idk
+            else:
+                current = head
+                while current:
+                    prev = current
+                    current = current.next
+                idk = Node(data)
+                prev.next = idk
+                return head
+
+
+    ### START of fixed code
+    mylist = Solution()
+    T = int(input())
+    head = None
+    for i in range(T):
+        data = int(input())
+        head = mylist.insert(head, data)
+    mylist.display(head)
+    return
+
+
 def main():
-    scope()
+    linked_lists()
     return
 
 
