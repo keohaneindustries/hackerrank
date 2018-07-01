@@ -703,9 +703,45 @@ def inheritance():
     return
 
 
+def abstract_classes():
+    ### START of fixed code
+    from abc import ABCMeta, abstractmethod
+    
+    class Book(object, metaclass=ABCMeta):
+        
+        def __init__(self, title, author):
+            self.title = title
+            self.author = author
+        
+        @abstractmethod
+        def display(): pass
+
+    ### END of fixed code
+
+    class MyBook(Book):
+        def __init__(self,title, author, price):
+            super().__init__(title, author)
+            self.price = price
+            
+        def display(self):
+            print("Title: "+ self.title)
+            print("Author: "+ self.author)
+            print("Price: "+ str(self.price))
+
+
+    ### START of fixed code
+    title = input()
+    author = input()
+    price = int(input())
+    new_novel = MyBook(title, author, price)
+    new_novel.display()
+    
+    return
+
+
 
 def main():
-    inheritance()
+    abstract_classes()
     return
 
 
