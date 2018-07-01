@@ -635,8 +635,26 @@ def binary():
     return
 
 
+def hourglass():
+    arr = []
+    
+    for _ in range(6):
+        arr.append(list(map(int, input().rstrip().split())))
+    
+    max_sum = -999
+    for x in range(4):
+        for y in range(4):
+            cur_sum = arr[y][x]+arr[y][x+1]+arr[y][x+2]+arr[y+1][x+1]+arr[y+2][x]+arr[y+2][x+1]+arr[y+2][x+2]
+            if cur_sum > max_sum:
+                max_sum = cur_sum
+            
+    print(str(max_sum))
+    
+    return
+
+
 def main():
-    binary()
+    hourglass()
     return
 
 
