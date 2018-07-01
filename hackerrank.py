@@ -937,8 +937,39 @@ def interfaces():
     print(s)
 
 
+def bubble_sort():
+    ### START of fixed code
+    import sys
+    
+    n = int(input().strip())
+    a = list(map(int, input().strip().split(' ')))
+    ### END of fixed code
+    
+    def swap(a,ix):
+        item=a.pop(ix)
+        a.insert(ix+1,item)
+        return a
+        
+    numSwaps = 0
+    for i in range(n):
+        for j in range(n-1):
+            if (a[j] > a[j + 1]):
+                numSwaps+=1
+                a = swap(a,j)
+
+
+
+    firstElement = a[0]
+    lastElement = a[len(a)-1]
+    print("Array is sorted in "+str(numSwaps) +" swaps.")
+    print("First Element: "+str(firstElement))
+    print("Last Element: "+str(lastElement))
+    
+    return
+
+
 def main():
-    interfaces()
+    bubble_sort()
     return
 
 
