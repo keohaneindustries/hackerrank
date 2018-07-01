@@ -739,9 +739,40 @@ def abstract_classes():
     return
 
 
+def scope():
+    ### START of fixed code
+    class Difference:
+        
+        def __init__(self, a):
+            self.__elements = a
+
+    ### END of fixed code
+        
+        def computeDifference(self):
+            max_diff = 0
+            elements = self.__elements
+            for i in range(len(elements)-1):
+                for j in range(i+1,len(elements)):
+                    abs_diff = abs(elements[i]-elements[j])
+                    if abs_diff > max_diff:
+                        max_diff = abs_diff
+            self.maximumDifference = max_diff
+
+
+    ### START of fixed code
+    _ = input()
+    a = [int(e) for e in input().split(' ')]
+
+    d = Difference(a)
+    d.computeDifference()
+
+    print(d.maximumDifference)
+    
+    return
+
 
 def main():
-    abstract_classes()
+    scope()
     return
 
 
