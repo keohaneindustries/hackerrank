@@ -905,8 +905,40 @@ def queues():
     return
 
 
+def interfaces():
+    ### START of fixed code
+    class AdvancedArithmetic(object):
+    
+        def divisorSum(n):
+            raise NotImplementedError
+    ### END of fixed code
+    
+    import math
+    class Calculator(AdvancedArithmetic):
+
+        def __init__(self):
+            self.divisors = []
+
+        def divisorSum(self, n):
+            self.max_divisor = int(math.floor(math.sqrt(n)))
+            for x in range(1,self.max_divisor+1):
+                if (n%x)==0:
+                    self.divisors.append(x)
+                    if x!=(n/x):
+                        self.divisors.append(n/x)
+            return int(sum(self.divisors))
+        
+        
+    ### START of fixed code
+    n = int(input())
+    my_calculator = Calculator()
+    s = my_calculator.divisorSum(n)
+    print("I implemented: " + type(my_calculator).__bases__[0].__name__)
+    print(s)
+
+
 def main():
-    queues()
+    interfaces()
     return
 
 
