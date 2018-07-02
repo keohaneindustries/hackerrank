@@ -968,8 +968,51 @@ def bubble_sort():
     return
 
 
+def binary_search_tree():
+    ### START of fixed code
+    class Node:
+    
+        def __init__(self, data):
+            self.right = self.left = None
+            self.data = data
+
+    class Solution:
+    
+        def insert(self, root, data):
+            if root == None:
+                return Node(data)
+            else:
+                if data <= root.data:
+                    cur = self.insert(root.left, data)
+                    root.left = cur
+                else:
+                    cur = self.insert(root.right, data)
+                    root.right = cur
+            return root
+    ### END of fixed code
+        def getHeight(self, root):
+            if root == None:
+                return -1
+            else:
+                check_l = self.getHeight(root.left)
+                check_r = self.getHeight(root.right)
+                
+                return 1 + max(check_l,check_r)
+                
+    ### START of fixed code
+    T = int(input())
+    myTree = Solution()
+    root = None
+    for i in range(T):
+        data = int(input())
+        root = myTree.insert(root, data)
+    height = myTree.getHeight(root)
+    print(height)
+    return
+
+
 def main():
-    bubble_sort()
+    binary_search_tree()
     return
 
 
