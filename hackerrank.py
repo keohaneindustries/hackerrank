@@ -1060,8 +1060,40 @@ def binary_search_tree2():
     return
 
 
+def primality():
+    import math
+    
+    class AdvancedArithmetic(object):
+        
+        def divisorSum(n):
+            raise NotImplementedError
+    
+    class Calculator(AdvancedArithmetic):
+        
+        def __init__(self):
+            self.divisors = []
+        
+        def is_prime(self, n):
+            self.max_divisor = int(math.floor(math.sqrt(n)))
+            if n == 1:
+                return "Not prime"
+            elif n ==2:
+                return "Prime"
+            for x in range(2, self.max_divisor + 1):
+                if (n % x) == 0:
+                    return "Not prime"
+                    
+            return "Prime"
+        
+    T = int(input())
+    my_calculator = Calculator()
+    for i in range(T):
+        n = int(input())
+        print(my_calculator.is_prime(n))
+
+
 def main():
-    binary_search_tree2()
+    primality()
     return
 
 
