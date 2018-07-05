@@ -1147,8 +1147,31 @@ def linked_lists_2():
     return
 
 
+def nested_logic():
+    da, ma, ya = map(int, input().split())
+    de, me, ye = map(int, input().split())
+    
+    if ya > ye:
+        print(10000)
+    elif ya < ye:
+        print(0)
+    else:
+        if ma < me:
+            print(0)
+        elif ma == me:
+            if da <= de:
+                print(0)
+            else:
+                print(15*(da-de))
+        else:
+            print(500 * (ma - me))
+        
+    
+    return
+
+
 def main():
-    linked_lists_2()
+    nested_logic()
     return
 
 
