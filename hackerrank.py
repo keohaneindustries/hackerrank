@@ -1291,8 +1291,29 @@ def bitwise():
     return
 
 
+def time_conversion():
+    import os
+    import sys
+    
+    def timeConversion(s):
+        t = s[:-2]
+        tm = s[-2:]
+        hr,mn,sc = map(int,t.split(':'))
+        if tm == 'PM':
+            if hr!=12:
+                hr+=12
+        elif hr ==12:
+            hr-=12
+        return '{}:{}:{}'.format('{:02d}'.format(hr),'{:02d}'.format(mn),'{:02d}'.format(sc))
+        
+    
+    s = input()
+    result = timeConversion(s)
+    print(result)
+
+
 def main():
-    bitwise()
+    time_conversion()
     return
 
 
