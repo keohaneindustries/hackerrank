@@ -1312,8 +1312,66 @@ def time_conversion():
     print(result)
 
 
+def leaderboard():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the climbingLeaderboard function below.
+    def climbingLeaderboard(scores, alice):
+        scores.sort()
+        result = []
+        p=len(scores)
+        i0 = 0
+        r0 = p+1
+        
+        for s in alice:
+            i1 = max([0,i0-1])
+            r1 = p-i1+1
+            while i1 < p:
+                if s < scores[i1]:
+                    i0 = i1
+                    i1 = p
+                elif s == scores[i1]:
+                    r1 -= 1
+                    i1 += 1
+                    i0 = i1
+                    i1 = p
+                elif s > scores[i1]:
+                    r1-=1
+                    i1 += 1
+            result.append(r1)
+            r0=r1
+        return result
+    
+    def remove_dupes(l):
+        i=0
+        while i < (len(l)-1):
+           if l[i] == l[i+1]:
+               w=l.pop(i)
+           else:
+               i+=1
+        return l
+    
+    scores_count = int(input())
+    
+    scores = list(map(int, input().rstrip().split()))
+    scores = remove_dupes(scores)
+    
+    alice_count = int(input())
+    
+    alice = list(map(int, input().rstrip().split()))
+    
+    result = climbingLeaderboard(scores, alice)
+    
+    for res in result:
+        print(res)
+    
+
 def main():
-    time_conversion()
+    leaderboard()
     return
 
 
