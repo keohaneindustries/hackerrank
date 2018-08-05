@@ -1370,8 +1370,59 @@ def leaderboard():
         print(res)
     
 
+def magic_square():
+    import math
+    import os
+    import random
+    import re
+    import sys
+
+    def formingMagicSquare(s):
+        
+        def check_rows(s):
+            if (sum(s[0])==sum(s[1])) and (sum(s[1])==sum(s[2])):
+                return True
+            else:
+                return False
+        def check_cols(s):
+            if (sum([s[0][0],s[1][0],s[2][0]])==sum([s[0][1],s[1][1],s[2][1]])) and (sum([s[0][2],s[1][2],s[2][2]])==sum([s[0][1],s[1][1],s[2][1]])):
+                return True
+            else:
+                return False
+        def check_diags(s):
+            if sum([s[0][0],s[2][2]])==sum([s[0][2],s[2][0]]):
+                return True
+            else:
+                return False
+        def check_all(s):
+            if check_rows(s):
+                if check_cols(s):
+                    if check_diags(s):
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        
+        
+        
+        return s
+    
+    s = []
+    for _ in range(3):
+        s.append(list(map(int, input().rstrip().split())))
+
+    result = formingMagicSquare(s)
+    
+    print(str(result))
+    
+    return
+
+
 def main():
-    leaderboard()
+    magic_square()
     return
 
 
