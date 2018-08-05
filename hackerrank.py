@@ -1451,8 +1451,28 @@ def kangaroos():
     print(result)
 
 
+def min_abs_diff_in_array():
+    def minimumAbsoluteDifference(arr):
+        arr.sort()
+        arr2=arr[1:]
+        l = []
+        for i in range(len(arr2)):
+            l.append(arr2[i]-arr[i])
+        
+        return min(l)
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = minimumAbsoluteDifference(arr)
+    print(str(result))
+    
+    return
+
+
 def main():
-    kangaroos()
+    min_abs_diff_in_array()
     return
 
 
