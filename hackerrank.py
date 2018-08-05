@@ -1421,8 +1421,38 @@ def magic_square():
     return
 
 
+def kangaroos():
+    def kangaroo(x1, v1, x2, v2):
+        b = x1-x2
+        a = v1-v2
+        if a==0:
+            if b==0:
+                return "YES"
+            else:
+                return "NO"
+        else:
+            x = (0-b)/a
+            if (x>=0) and ((x%1)==0):
+                return "YES"
+            else:
+                return "NO"
+    
+    x1V1X2V2 = input().split()
+    
+    x1 = int(x1V1X2V2[0])
+    
+    v1 = int(x1V1X2V2[1])
+    
+    x2 = int(x1V1X2V2[2])
+    
+    v2 = int(x1V1X2V2[3])
+    
+    result = kangaroo(x1, v1, x2, v2)
+    print(result)
+
+
 def main():
-    magic_square()
+    kangaroos()
     return
 
 
