@@ -1471,8 +1471,41 @@ def min_abs_diff_in_array():
     return
 
 
+def luck_balance():
+    def luckBalance(k, contests):
+        luck = 0
+        important = []
+        for c in contests:
+            if c[1]==1:
+                important.append(c[0])
+            else:
+                luck+=c[0]
+        if k==0:
+            luck -= sum(important)
+            return luck
+        else:
+            important.sort()
+            luck+=sum(important[-k:])
+            luck-=sum(important[:-k])
+            return luck
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    contests = []
+
+    for _ in range(n):
+        contests.append(list(map(int, input().rstrip().split())))
+
+    result = luckBalance(k, contests)
+    print(str(result))
+
+
 def main():
-    min_abs_diff_in_array()
+    luck_balance()
     return
 
 
