@@ -1504,8 +1504,38 @@ def luck_balance():
     print(str(result))
 
 
+def mark_and_toys():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    def maximumToys(prices, k):
+        prices.sort()
+        result = 0
+        for p in prices:
+            if k >=p:
+                result+=1
+                k-=p
+            else:
+                break
+        return result
+    
+    nk = input().split()
+    
+    n = int(nk[0])
+    
+    k = int(nk[1])
+    
+    prices = list(map(int, input().rstrip().split()))
+    
+    result = maximumToys(prices, k)
+    print(str(result))
+    return
+
+
 def main():
-    luck_balance()
+    mark_and_toys()
     return
 
 
