@@ -1534,8 +1534,37 @@ def mark_and_toys():
     return
 
 
+def priyanka_and_toys():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    def toys(w):
+        w.sort()
+        current_min = 0
+        result =0
+        for wgt in w:
+            if (current_min==0) and (result==0):
+                result += 1
+                current_min=wgt
+            elif wgt > (current_min+4):
+                result += 1
+                current_min = wgt
+        return result
+    
+    n = int(input())
+    
+    w = list(map(int, input().rstrip().split()))
+    
+    result = toys(w)
+    print(str(result))
+    return
+
+
 def main():
-    mark_and_toys()
+    priyanka_and_toys()
     return
 
 
