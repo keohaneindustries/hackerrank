@@ -1563,8 +1563,41 @@ def priyanka_and_toys():
     return
 
 
+def cutting_boards():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the boardCutting function below.
+    def boardCutting(cost_y, cost_x):
+        total_cost = 0
+        min_cost = 0
+        return (min_cost % (10**9+7))
+
+    q = int(input())
+
+    for q_itr in range(q):
+        mn = input().split()
+    
+        m = int(mn[0])
+    
+        n = int(mn[1])
+    
+        cost_y = list(map(int, input().rstrip().split()))
+    
+        cost_x = list(map(int, input().rstrip().split()))
+    
+        result = boardCutting(cost_y, cost_x)
+        print(str(result))
+    
+    
+    return
+
+
 def main():
-    priyanka_and_toys()
+    cutting_boards()
     return
 
 
