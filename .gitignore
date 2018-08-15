@@ -1,2 +1,4 @@
 *.idea
 offline_challenges/
+*.txt
+input01.txt

@@ -437,8 +437,1202 @@ def run_normal():
     return
 
 
+def run_normal2():
+    import math
+    def _run_normal(u,sd,t):
+        return (1/2)*(1+math.erf((t-u) /(sd*math.sqrt(2))))
+
+    params = list(map(float,input().split()))
+
+    u = params[0]
+    sd = params[1]
+    t_high = float(input())
+    t_fail = float(input())
+
+    print('%.2f' % ((1-_run_normal(u,sd,t_high))*100))
+    print('%.2f' % ((1-_run_normal(u,sd,t_fail))*100))
+    print('%.2f' % ((_run_normal(u,sd,t_fail))*100))
+
+    return
+
+
+def clt1():
+    import math
+    def _run_normal(u,sd,t):
+        return (1/2)*(1+math.erf((t-u) /(sd*math.sqrt(2))))
+
+    t_fail = float(input())
+    n = float(input())
+    u = float(input())
+    sd = float(input())
+
+    print('%.4f' % _run_normal(u*n,sd*math.sqrt(n),t_fail))
+
+    return
+
+
+def clt2():
+    import math
+    def _run_normal(u,sd,t):
+        return (1/2)*(1+math.erf((t-u) /(sd*math.sqrt(2))))
+
+    t_fail = float(input())
+    n = float(input())
+    u = float(input())
+    sd = float(input())
+
+    print('%.4f' % _run_normal(u*n,sd*math.sqrt(n),t_fail))
+
+    return
+
+
+def clt3():
+    import math
+    
+    n = float(input())
+    mean = float(input())
+    std = float(input())
+    ci = float(input())
+    zScore = float(input())
+    marginOfError = zScore * std / math.sqrt(n);
+    print(mean - marginOfError)
+    print(mean + marginOfError)
+    return
+
+
+def corr1():
+    import math
+    
+    def _get_sd(l, u):
+        sd = math.sqrt(sum([(l[i] - u) ** 2 for i in range(len(l))]) / (len(l)))
+        return sd
+    
+    def _get_corr(n, x_l, y_l):
+        x_u = sum(x_l) / n
+        y_u = sum(y_l) / n
+        
+        x_sd = _get_sd(x_l, x_u)
+        y_sd = _get_sd(y_l, y_u)
+        
+        num = sum([(x_l[i] - x_u) * (y_l[i] - y_u) for i in range(n)])
+        denom = (n * x_sd * y_sd)
+        return num / denom
+    
+    n = int(input())
+    x_l = list(map(float, input().split()))
+    y_l = list(map(float, input().split()))
+    
+    print('%.3f' % _get_corr(n, x_l, y_l))
+    
+    return
+
+
+def spearman_corr():
+    def _get_rank(X, n):
+        x_rank = dict((x, i + 1) for i, x in enumerate(sorted(set(X))))
+        return [x_rank[x] for x in X]
+    
+    n = int(input())
+    X = list(map(float, input().split()))
+    Y = list(map(float, input().split()))
+    
+    rx = _get_rank(X, n)
+    ry = _get_rank(Y, n)
+    
+    d = [(rx[i] - ry[i]) ** 2 for i in range(n)]
+    rxy = 1 - (6 * sum(d)) / (n * (n * n - 1))
+    
+    print('%.3f' % rxy)
+
+
+def MLR():
+    # import data
+    import numpy as np
+    
+    m, n = [int(i) for i in input().strip().split(' ')]
+    X = []
+    Y = []
+    for i in range(n):
+        data = input().strip().split(' ')
+        X.append(data[:m])
+        Y.append(data[m:])
+    q = int(input().strip())
+    X_new = []
+    for x in range(q):
+        X_new.append(input().strip().split(' '))
+    X = np.array(X, float)
+    Y = np.array(Y, float)
+    X_new = np.array(X_new, float)
+
+    # center
+    X_R = X - np.mean(X, axis=0)
+    Y_R = Y - np.mean(Y)
+
+    # calculate beta
+    beta = np.dot(np.linalg.inv(np.dot(X_R.T, X_R)), np.dot(X_R.T, Y_R))
+
+    # predict
+    X_new_R = X_new - np.mean(X, axis=0)
+    Y_new_R = np.dot(X_new_R, beta)
+    Y_new = Y_new_R + np.mean(Y)
+
+    # print
+    for i in Y_new:
+        print(round(float(i), 2))
+    return
+
+
+def LSR():
+    x = [95, 85, 80, 70, 60]
+    y = [85, 95, 70, 65, 70]
+    ax = sum(x) / len(x)
+    ay = sum(y) / len(y)
+    sx = 0
+    n = 0
+    d = 0
+    for i in range(len(x)):
+        n += (ax - x[i]) * (ay - y[i])
+        d += (ax - x[i]) ** 2
+    slope = (1.0 * n) / d
+    inter = ay - slope * ax
+    y = slope * 80 + inter
+    print(round(y, 3))
+    return
+
+
+def binary():
+    n = int(input())
+    over = True
+    db = 1
+    digts = 1
+    while over:
+        if n <=db:
+            over = False
+        else:
+            db = db * 2
+            digts +=1
+    op = 0
+    rem = n
+    for i in range(digts):
+        cur = digts-i-1
+        dig = rem//(2**cur)
+        op += dig*(10**cur)
+        rem = rem % (2**cur)
+    
+    op=str(op)
+
+    streak = 0
+    max_streak = 0
+    for i in op:
+        if i =='1':
+            streak +=1
+            if streak>max_streak:
+                max_streak = streak
+        else:
+            streak = 0
+    
+    print(str(max_streak))
+    return
+
+
+def hourglass():
+    arr = []
+    
+    for _ in range(6):
+        arr.append(list(map(int, input().rstrip().split())))
+    
+    max_sum = -999
+    for x in range(4):
+        for y in range(4):
+            cur_sum = arr[y][x]+arr[y][x+1]+arr[y][x+2]+arr[y+1][x+1]+arr[y+2][x]+arr[y+2][x+1]+arr[y+2][x+2]
+            if cur_sum > max_sum:
+                max_sum = cur_sum
+            
+    print(str(max_sum))
+    
+    return
+
+
+def inheritance():
+    ### START of fixed code
+    class Person:
+        
+        def __init__(self, firstName, lastName, idNumber):
+            self.firstName = firstName
+            self.lastName = lastName
+            self.idNumber = idNumber
+        
+        def printPerson(self):
+            print("Name:", self.lastName + ",", self.firstName)
+            print("ID:", self.idNumber)
+
+    class Student(Person):
+    ### END of fixed code
+    
+        def __init__(self,firstName, lastName, idNumber,scores):
+            super().__init__(firstName, lastName, idNumber)
+            self.scores = scores
+
+        def calculate(self):
+            avg = sum(self.scores) / len(self.scores)
+            if (avg >= 90) and (avg <= 100):
+                grade = 'O'
+            elif (avg >= 80) and (avg <= 90):
+                grade = 'E'
+            elif (avg >= 70) and (avg <= 80):
+                grade = 'A'
+            elif (avg >= 55) and (avg <= 70):
+                grade = 'P'
+            elif (avg >= 40) and (avg <= 55):
+                grade = 'D'
+            else:
+                grade = 'T'
+            return grade
+    
+    
+    ### START of fixed code
+    line = input().split()
+    firstName = line[0]
+    lastName = line[1]
+    idNum = line[2]
+    numScores = int(input())  # not needed for Python
+    scores = list(map(int, input().split()))
+    s = Student(firstName, lastName, idNum, scores)
+    s.printPerson()
+    print("Grade:", s.calculate())
+    
+    return
+
+
+def abstract_classes():
+    ### START of fixed code
+    from abc import ABCMeta, abstractmethod
+    
+    class Book(object, metaclass=ABCMeta):
+        
+        def __init__(self, title, author):
+            self.title = title
+            self.author = author
+        
+        @abstractmethod
+        def display(): pass
+
+    ### END of fixed code
+
+    class MyBook(Book):
+        def __init__(self,title, author, price):
+            super().__init__(title, author)
+            self.price = price
+            
+        def display(self):
+            print("Title: "+ self.title)
+            print("Author: "+ self.author)
+            print("Price: "+ str(self.price))
+
+    ### START of fixed code
+    title = input()
+    author = input()
+    price = int(input())
+    new_novel = MyBook(title, author, price)
+    new_novel.display()
+    
+    return
+
+
+def scope():
+    ### START of fixed code
+    class Difference:
+        
+        def __init__(self, a):
+            self.__elements = a
+
+    ### END of fixed code
+        
+        def computeDifference(self):
+            max_diff = 0
+            elements = self.__elements
+            for i in range(len(elements)-1):
+                for j in range(i+1,len(elements)):
+                    abs_diff = abs(elements[i]-elements[j])
+                    if abs_diff > max_diff:
+                        max_diff = abs_diff
+            self.maximumDifference = max_diff
+
+
+    ### START of fixed code
+    _ = input()
+    a = [int(e) for e in input().split(' ')]
+
+    d = Difference(a)
+    d.computeDifference()
+
+    print(d.maximumDifference)
+    
+    return
+
+
+def linked_lists():
+    ### START of fixed code
+    class Node:
+    
+        def __init__(self, data):
+            self.data = data
+            self.next = None
+
+    class Solution:
+    
+        def display(self, head):
+            current = head
+            while current:
+                print(current.data, end=' ')
+                current = current.next
+        
+    ### END of fixed code
+        def insert(self, head, data):
+            if head is None:
+                idk = Node(data)
+                return idk
+            else:
+                current = head
+                while current:
+                    prev = current
+                    current = current.next
+                idk = Node(data)
+                prev.next = idk
+                return head
+
+
+    ### START of fixed code
+    mylist = Solution()
+    T = int(input())
+    head = None
+    for i in range(T):
+        data = int(input())
+        head = mylist.insert(head, data)
+    mylist.display(head)
+    return
+
+
+def exceptions_1():
+    import sys
+    
+    S = input().strip()
+    
+    try:
+        i = int(S)
+        print(i)
+    except(ValueError):
+        print("Bad String")
+    
+    return
+
+
+def exceptions_2():
+    
+    class Calculator(object):
+        
+        def power(self,n,p):
+            if (n<0) or (p<0):
+                raise Exception("n and p should be non-negative")
+            else:
+                return n**p
+            
+    ### START of fixed code
+    myCalculator = Calculator()
+    T = int(input())
+    for i in range(T):
+        n, p = map(int, input().split())
+        try:
+            ans = myCalculator.power(n, p)
+            print(ans)
+        except Exception as e:
+            print(e)
+    return
+    
+
+def queues():
+    ### START of fixed code
+    import sys
+
+    class Solution:
+    ### END of fixed code
+        
+        def __init__(self):
+            self.stack = []
+            self.queue = []
+        
+        def enqueueCharacter(self,char):
+            self.queue.insert(0,char)
+        
+        def pushCharacter(self,char):
+            self.stack.append(char)
+        
+        def popCharacter(self):
+            return self.stack.pop()
+        
+        def dequeueCharacter(self):
+            return self.queue.pop()
+    
+    
+    ### START of fixed code
+    # read the string s
+    s = input()
+    # Create the Solution class object
+    obj = Solution()
+
+    l = len(s)
+    # push/enqueue all the characters of string s to stack
+    for i in range(l):
+        obj.pushCharacter(s[i])
+        obj.enqueueCharacter(s[i])
+
+    isPalindrome = True
+    '''
+    pop the top character from stack
+    dequeue the first character from queue
+    compare both the characters
+    '''
+    for i in range(l // 2):
+        if obj.popCharacter() != obj.dequeueCharacter():
+            isPalindrome = False
+            break
+    # finally print whether string s is palindrome or not.
+    if isPalindrome:
+        print("The word, " + s + ", is a palindrome.")
+    else:
+        print("The word, " + s + ", is not a palindrome.")
+    
+    return
+
+
+def interfaces():
+    ### START of fixed code
+    class AdvancedArithmetic(object):
+    
+        def divisorSum(n):
+            raise NotImplementedError
+    ### END of fixed code
+    
+    import math
+    class Calculator(AdvancedArithmetic):
+
+        def __init__(self):
+            self.divisors = []
+
+        def divisorSum(self, n):
+            self.max_divisor = int(math.floor(math.sqrt(n)))
+            for x in range(1,self.max_divisor+1):
+                if (n%x)==0:
+                    self.divisors.append(x)
+                    if x!=(n/x):
+                        self.divisors.append(n/x)
+            return int(sum(self.divisors))
+        
+        
+    ### START of fixed code
+    n = int(input())
+    my_calculator = Calculator()
+    s = my_calculator.divisorSum(n)
+    print("I implemented: " + type(my_calculator).__bases__[0].__name__)
+    print(s)
+
+
+def bubble_sort():
+    ### START of fixed code
+    import sys
+    
+    n = int(input().strip())
+    a = list(map(int, input().strip().split(' ')))
+    ### END of fixed code
+    
+    def swap(a,ix):
+        item=a.pop(ix)
+        a.insert(ix+1,item)
+        return a
+        
+    numSwaps = 0
+    for i in range(n):
+        for j in range(n-1):
+            if (a[j] > a[j + 1]):
+                numSwaps+=1
+                a = swap(a,j)
+
+
+
+    firstElement = a[0]
+    lastElement = a[len(a)-1]
+    print("Array is sorted in "+str(numSwaps) +" swaps.")
+    print("First Element: "+str(firstElement))
+    print("Last Element: "+str(lastElement))
+    
+    return
+
+
+def binary_search_tree():
+    ### START of fixed code
+    class Node:
+    
+        def __init__(self, data):
+            self.right = self.left = None
+            self.data = data
+
+    class Solution:
+    
+        def insert(self, root, data):
+            if root == None:
+                return Node(data)
+            else:
+                if data <= root.data:
+                    cur = self.insert(root.left, data)
+                    root.left = cur
+                else:
+                    cur = self.insert(root.right, data)
+                    root.right = cur
+            return root
+    ### END of fixed code
+        def getHeight(self, root):
+            if root == None:
+                return -1
+            else:
+                check_l = self.getHeight(root.left)
+                check_r = self.getHeight(root.right)
+                
+                return 1 + max(check_l,check_r)
+                
+    ### START of fixed code
+    T = int(input())
+    myTree = Solution()
+    root = None
+    for i in range(T):
+        data = int(input())
+        root = myTree.insert(root, data)
+    height = myTree.getHeight(root)
+    print(height)
+    
+    return
+
+
+def binary_search_tree2():
+    ### START of fixed code
+    import sys
+
+    class Node:
+    
+        def __init__(self, data):
+            self.right = self.left = None
+            self.data = data
+
+    class Solution:
+    
+        def insert(self, root, data):
+            if root == None:
+                return Node(data)
+            else:
+                if data <= root.data:
+                    cur = self.insert(root.left, data)
+                    root.left = cur
+                else:
+                    cur = self.insert(root.right, data)
+                    root.right = cur
+            return root
+    ### END of fixed code
+
+        def levelOrder(self, root):
+            queue = [root] if root else []
+
+            while queue:
+                node = queue.pop()
+                print(node.data, end=" ")
+
+                if node.left: queue.insert(0, node.left)
+                if node.right: queue.insert(0, node.right)
+        
+    
+    ### START of fixed code
+    T = int(input())
+    myTree = Solution()
+    root = None
+    for i in range(T):
+        data = int(input())
+        root = myTree.insert(root, data)
+    myTree.levelOrder(root)
+    
+    return
+
+
+def primality():
+    import math
+    
+    class AdvancedArithmetic(object):
+        
+        def divisorSum(n):
+            raise NotImplementedError
+    
+    class Calculator(AdvancedArithmetic):
+        
+        def __init__(self):
+            self.divisors = []
+        
+        def is_prime(self, n):
+            self.max_divisor = int(math.floor(math.sqrt(n)))
+            if n == 1:
+                return "Not prime"
+            elif n ==2:
+                return "Prime"
+            for x in range(2, self.max_divisor + 1):
+                if (n % x) == 0:
+                    return "Not prime"
+                    
+            return "Prime"
+        
+    T = int(input())
+    my_calculator = Calculator()
+    for i in range(T):
+        n = int(input())
+        print(my_calculator.is_prime(n))
+
+
+def linked_lists_2():
+    ### START of fixed code
+    class Node:
+        
+        def __init__(self, data):
+            self.data = data
+            self.next = None
+    
+    class Solution:
+        
+        def insert(self, head, data):
+            p = Node(data)
+            if head == None:
+                head = p
+            elif head.next == None:
+                head.next = p
+            else:
+                start = head
+                while (start.next != None):
+                    start = start.next
+                start.next = p
+            return head
+        
+        def display(self, head):
+            current = head
+            while current:
+                print(current.data, end=' ')
+                current = current.next
+
+    ### END of fixed code
+        def removeDuplicates(self,head):
+            if not head:
+                return head
+            elif not head.next:
+                return head
+            else:
+                if head.next.data == head.data:
+                    head.next = head.next.next
+                    self.removeDuplicates(head)
+                else:
+                    self.removeDuplicates(head.next)
+                return head
+    
+    ### START of fixed code
+    mylist = Solution()
+    T = int(input())
+    head = None
+    for i in range(T):
+        data = int(input())
+        head = mylist.insert(head, data)
+    head = mylist.removeDuplicates(head)
+    mylist.display(head)
+    return
+
+
+def nested_logic():
+    da, ma, ya = map(int, input().split())
+    de, me, ye = map(int, input().split())
+    
+    if ya > ye:
+        print(10000)
+    elif ya < ye:
+        print(0)
+    else:
+        if ma < me:
+            print(0)
+        elif ma == me:
+            if da <= de:
+                print(0)
+            else:
+                print(15*(da-de))
+        else:
+            print(500 * (ma - me))
+        
+    
+    return
+
+
+def testing():
+    ### START of fixed code
+    import array
+    def minimum_index(seq):
+        if len(seq) == 0:
+            raise ValueError("Cannot get the minimum value index from an empty sequence")
+        min_idx = 0
+        for i in range(1, len(seq)):
+            if seq[i] < seq[min_idx]:
+                min_idx = i
+        return min_idx
+    
+    ### END of fixed code
+
+    class TestDataEmptyArray(object):
+        
+        @staticmethod
+        def get_array():
+            import array
+            return array.array('i')
+
+    class TestDataUniqueValues(object):
+    
+        @staticmethod
+        def get_array():
+            import array
+            l= [-1,5,8,7,0]
+            return array.array('i',l)
+    
+        @staticmethod
+        def get_expected_result():
+            return 0
+
+    class TestDataExactlyTwoDifferentMinimums(object):
+    
+        @staticmethod
+        def get_array():
+            import array
+            l = [-1, 5, 8, 7, 0,-1]
+            return array.array('i', l)
+    
+        @staticmethod
+        def get_expected_result():
+            return 0
+    
+    ### START of fixed code
+    def TestWithEmptyArray():
+        try:
+            seq = TestDataEmptyArray.get_array()
+            result = minimum_index(seq)
+        except ValueError as e:
+            pass
+        else:
+            assert False
+
+    def TestWithUniqueValues():
+        seq = TestDataUniqueValues.get_array()
+        assert len(seq) >= 2
+    
+        assert len(list(set(seq))) == len(seq)
+    
+        expected_result = TestDataUniqueValues.get_expected_result()
+        result = minimum_index(seq)
+        assert result == expected_result
+
+    def TestiWithExactyTwoDifferentMinimums():
+        seq = TestDataExactlyTwoDifferentMinimums.get_array()
+        assert len(seq) >= 2
+        tmp = sorted(seq)
+        assert tmp[0] == tmp[1] and (len(tmp) == 2 or tmp[1] < tmp[2])
+    
+        expected_result = TestDataExactlyTwoDifferentMinimums.get_expected_result()
+        result = minimum_index(seq)
+        assert result == expected_result
+
+    TestWithEmptyArray()
+    TestWithUniqueValues()
+    TestiWithExactyTwoDifferentMinimums()
+    print("OK")
+
+
+def regex():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    if __name__ == '__main__':
+        N = int(input())
+        names = []
+        for N_itr in range(N):
+            firstNameEmailID = input().split()
+            
+            firstName = firstNameEmailID[0]
+            
+            emailID = firstNameEmailID[1]
+            
+            if re.search('(?<=@)gmail\.com$',emailID):
+                names.append(firstName)
+        
+        names.sort()
+        for name in names:
+            print(name)
+
+
+def bitwise():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    if __name__ == '__main__':
+        T = int(input().strip())
+        for _ in range(T):
+            n, k = map(int, input().split())
+            print(k - 1 if ((k - 1) | k) <= n else k - 2)
+    return
+
+
+def time_conversion():
+    import os
+    import sys
+    
+    def timeConversion(s):
+        t = s[:-2]
+        tm = s[-2:]
+        hr,mn,sc = map(int,t.split(':'))
+        if tm == 'PM':
+            if hr!=12:
+                hr+=12
+        elif hr ==12:
+            hr-=12
+        return '{}:{}:{}'.format('{:02d}'.format(hr),'{:02d}'.format(mn),'{:02d}'.format(sc))
+        
+    
+    s = input()
+    result = timeConversion(s)
+    print(result)
+
+
+def leaderboard():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the climbingLeaderboard function below.
+    def climbingLeaderboard(scores, alice):
+        scores.sort()
+        result = []
+        p=len(scores)
+        i0 = 0
+        r0 = p+1
+        
+        for s in alice:
+            i1 = max([0,i0-1])
+            r1 = p-i1+1
+            while i1 < p:
+                if s < scores[i1]:
+                    i0 = i1
+                    i1 = p
+                elif s == scores[i1]:
+                    r1 -= 1
+                    i1 += 1
+                    i0 = i1
+                    i1 = p
+                elif s > scores[i1]:
+                    r1-=1
+                    i1 += 1
+            result.append(r1)
+            r0=r1
+        return result
+    
+    def remove_dupes(l):
+        i=0
+        while i < (len(l)-1):
+           if l[i] == l[i+1]:
+               w=l.pop(i)
+           else:
+               i+=1
+        return l
+    
+    scores_count = int(input())
+    
+    scores = list(map(int, input().rstrip().split()))
+    scores = remove_dupes(scores)
+    
+    alice_count = int(input())
+    
+    alice = list(map(int, input().rstrip().split()))
+    
+    result = climbingLeaderboard(scores, alice)
+    
+    for res in result:
+        print(res)
+    
+
+def magic_square():
+    import math
+    import os
+    import random
+    import re
+    import sys
+
+    def formingMagicSquare(s):
+        
+        def check_rows(s):
+            if (sum(s[0])==sum(s[1])) and (sum(s[1])==sum(s[2])):
+                return True
+            else:
+                return False
+        def check_cols(s):
+            if (sum([s[0][0],s[1][0],s[2][0]])==sum([s[0][1],s[1][1],s[2][1]])) and (sum([s[0][2],s[1][2],s[2][2]])==sum([s[0][1],s[1][1],s[2][1]])):
+                return True
+            else:
+                return False
+        def check_diags(s):
+            if sum([s[0][0],s[2][2]])==sum([s[0][2],s[2][0]]):
+                return True
+            else:
+                return False
+        def check_all(s):
+            if check_rows(s):
+                if check_cols(s):
+                    if check_diags(s):
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        
+        
+        
+        return s
+    
+    s = []
+    for _ in range(3):
+        s.append(list(map(int, input().rstrip().split())))
+
+    result = formingMagicSquare(s)
+    
+    print(str(result))
+    
+    return
+
+
+def kangaroos():
+    def kangaroo(x1, v1, x2, v2):
+        b = x1-x2
+        a = v1-v2
+        if a==0:
+            if b==0:
+                return "YES"
+            else:
+                return "NO"
+        else:
+            x = (0-b)/a
+            if (x>=0) and ((x%1)==0):
+                return "YES"
+            else:
+                return "NO"
+    
+    x1V1X2V2 = input().split()
+    
+    x1 = int(x1V1X2V2[0])
+    
+    v1 = int(x1V1X2V2[1])
+    
+    x2 = int(x1V1X2V2[2])
+    
+    v2 = int(x1V1X2V2[3])
+    
+    result = kangaroo(x1, v1, x2, v2)
+    print(result)
+
+
+def min_abs_diff_in_array():
+    def minimumAbsoluteDifference(arr):
+        arr.sort()
+        arr2=arr[1:]
+        l = []
+        for i in range(len(arr2)):
+            l.append(arr2[i]-arr[i])
+        
+        return min(l)
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = minimumAbsoluteDifference(arr)
+    print(str(result))
+    
+    return
+
+
+def luck_balance():
+    def luckBalance(k, contests):
+        luck = 0
+        important = []
+        for c in contests:
+            if c[1]==1:
+                important.append(c[0])
+            else:
+                luck+=c[0]
+        if k==0:
+            luck -= sum(important)
+            return luck
+        else:
+            important.sort()
+            luck+=sum(important[-k:])
+            luck-=sum(important[:-k])
+            return luck
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    contests = []
+
+    for _ in range(n):
+        contests.append(list(map(int, input().rstrip().split())))
+
+    result = luckBalance(k, contests)
+    print(str(result))
+
+
+def mark_and_toys():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    def maximumToys(prices, k):
+        prices.sort()
+        result = 0
+        for p in prices:
+            if k >=p:
+                result+=1
+                k-=p
+            else:
+                break
+        return result
+    
+    nk = input().split()
+    
+    n = int(nk[0])
+    
+    k = int(nk[1])
+    
+    prices = list(map(int, input().rstrip().split()))
+    
+    result = maximumToys(prices, k)
+    print(str(result))
+    return
+
+
+def priyanka_and_toys():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    def toys(w):
+        w.sort()
+        current_min = 0
+        result =0
+        for wgt in w:
+            if (current_min==0) and (result==0):
+                result += 1
+                current_min=wgt
+            elif wgt > (current_min+4):
+                result += 1
+                current_min = wgt
+        return result
+    
+    n = int(input())
+    
+    w = list(map(int, input().rstrip().split()))
+    
+    result = toys(w)
+    print(str(result))
+    return
+
+
+def cutting_boards():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the boardCutting function below.
+    def boardCutting(cost_y, cost_x):
+        total_cost = 0
+        min_cost = 0
+        return (min_cost % (10**9+7))
+
+    q = int(input())
+
+    for q_itr in range(q):
+        mn = input().split()
+    
+        m = int(mn[0])
+    
+        n = int(mn[1])
+    
+        cost_y = list(map(int, input().rstrip().split()))
+    
+        cost_x = list(map(int, input().rstrip().split()))
+    
+        result = boardCutting(cost_y, cost_x)
+        print(str(result))
+    
+    
+    return
+
+
+def permuting_two_arrays():
+    def twoArrays(k, A, B):
+        A.sort()
+        B.sort(reverse=True)
+        if (any(a + b < k for a, b in zip(A, B))):
+            return "NO"
+        else:
+            return "YES"
+
+    q = int(input())
+
+    for q_itr in range(q):
+        nk = input().split()
+    
+        n = int(nk[0])
+    
+        k = int(nk[1])
+    
+        A = list(map(int, input().rstrip().split()))
+    
+        B = list(map(int, input().rstrip().split()))
+    
+        result = twoArrays(k, A, B)
+        
+        print(result)
+    
+    return
+
+
+def jim_and_the_orders():
+    print(*(lambda s: sorted(range(1, len(s) + 1), key=lambda i: s[i - 1]))(
+        tuple(sum(map(int, input().split())) for _ in range(int(input())))))
+    return
+
+
 def main():
-    run_normal()
+    jim_and_the_orders()
     return
 
 
