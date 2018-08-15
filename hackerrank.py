@@ -1631,8 +1631,37 @@ def jim_and_the_orders():
     return
 
 
+def max_min():
+    # Complete the maxMin function below.
+    def maxMin(k, arr):
+        arr.sort()
+        unfairness=-1
+        for i in range(len(arr)-k+1):
+            temp = arr[i+k-1]- arr[i]
+            if unfairness==-1:
+                unfairness=temp
+            else:
+                unfairness=min(unfairness,temp)
+        return unfairness
+        
+    n = int(input())
+    
+    k = int(input())
+    
+    arr = []
+    
+    for _ in range(n):
+        arr_item = int(input())
+        arr.append(arr_item)
+    
+    result = maxMin(k, arr)
+    print(str(result))
+    
+    return
+
+
 def main():
-    jim_and_the_orders()
+    max_min()
     return
 
 
