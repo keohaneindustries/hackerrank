@@ -1660,8 +1660,90 @@ def max_min():
     return
 
 
+def cloudy_day():
+    def maximumPeople(p, x, y, r):
+        # Return the maximum number of people that will be in a sunny town after removing exactly one cloud.
+        
+        def _sum_sunny(p,x,clouds):
+            # for each cloud find cities made sunny by removing
+            if len(clouds) != 0:
+                sunny=sum(p)
+            else:
+                s = []
+                is_dark = False
+                for j, town in enumerate(x):
+                    for i in clouds:
+                        if i[0] <= town <= i[1]:
+                            is_dark = True
+                            break
+                    if not is_dark:
+                        s.append(j)
+                    is_dark = False
+                sunny=sum([p[i] for i in s])
+            return sunny
+        
+        sunny_ppl = 0
+        ord = (lambda s: sorted(range(1, len(s) + 1), key=lambda i: s[i - 1]))(x)
+        x_sort = [x[i - 1] for i in ord]
+        p_sort = [p[i - 1] for i in ord]
+        clouds = [[y[i] - r[i], y[i] + r[i]] for i in range(len(r))]
+        ord_clouds = (lambda s: sorted(range(1, len(s) + 1), key=lambda i: s[i - 1][0]))(clouds)
+        clouds_sort = [clouds[i - 1] for i in ord_clouds]
+
+        # find list of clouds that cover at least one town
+        l = []
+        for i, cd in enumerate(clouds_sort):
+            for j in x_sort:
+                if cd[0] <= j <= cd[1]:
+                    l.append(i)
+                    break
+        clouds_filter = [clouds_sort[i] for i in l]
+        
+        if len(clouds_filter)!=0:
+            sunny_ppl=sum(p_sort)
+        else:
+            # find list of towns that are already sunny
+            s = []
+            d =[]
+            is_dark=False
+            for j,town in enumerate(x_sort):
+                for i in clouds_filter:
+                    if i[0] <= town <= i[1]:
+                        d.append(j)
+                        is_dark=True
+                        break
+                if not is_dark:
+                    s.append(j)
+                is_dark=False
+                
+            x_sunny = [x_sort[i] for i in s]
+            p_sunny = sum([p_sort[i] for i in s])
+            x_dark = [x_sort[i] for i in d]
+            p_dark = [p_sort[i] for i in s]
+
+            sunny_add= max([_sum_sunny(p_dark,x_dark,clouds_filter[:i]+clouds_filter[i+1:]) for i in range(len(clouds_filter))])
+            sunny_ppl=sunny_add+p_sunny
+        return sunny_ppl
+
+    n = int(input())
+
+    p = list(map(int, input().rstrip().split()))
+
+    x = list(map(int, input().rstrip().split()))
+
+    m = int(input())
+
+    y = list(map(int, input().rstrip().split()))
+
+    r = list(map(int, input().rstrip().split()))
+
+    result = maximumPeople(p, x, y, r)
+    print(str(result))
+    return
+
+
 def main():
-    max_min()
+    cloudy_day()
     return
 
 
