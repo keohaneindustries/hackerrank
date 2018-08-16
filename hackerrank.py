@@ -1666,7 +1666,7 @@ def cloudy_day():
         
         def _sum_sunny(p,x,clouds):
             # for each cloud find cities made sunny by removing
-            if len(clouds) != 0:
+            if len(clouds) == 0:
                 sunny=sum(p)
             else:
                 s = []
@@ -1699,7 +1699,7 @@ def cloudy_day():
                     break
         clouds_filter = [clouds_sort[i] for i in l]
         
-        if len(clouds_filter)!=0:
+        if len(clouds_filter)==0:
             sunny_ppl=sum(p_sort)
         else:
             # find list of towns that are already sunny
@@ -1719,7 +1719,7 @@ def cloudy_day():
             x_sunny = [x_sort[i] for i in s]
             p_sunny = sum([p_sort[i] for i in s])
             x_dark = [x_sort[i] for i in d]
-            p_dark = [p_sort[i] for i in s]
+            p_dark = [p_sort[i] for i in d]
 
             sunny_add= max([_sum_sunny(p_dark,x_dark,clouds_filter[:i]+clouds_filter[i+1:]) for i in range(len(clouds_filter))])
             sunny_ppl=sunny_add+p_sunny
