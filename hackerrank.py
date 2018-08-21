@@ -1720,8 +1720,38 @@ def cloudy_day():
     return
 
 
+def largest_permutation():
+    # Complete the largestPermutation function below.
+    def largestPermutation(k, arr):
+        l=[]
+        arr.reverse()
+        while (k>0) and (len(arr)>1):
+            m = max(arr)
+            o = arr.pop()
+            l.append(m)
+            if o!=m:
+                i = arr.index(m)
+                arr[i] = o
+                k-=1
+        arr.reverse()
+        l.extend(arr)
+        return l
+    
+    nk = input().split()
+    
+    n = int(nk[0])
+    
+    k = int(nk[1])
+    
+    arr = list(map(int, input().rstrip().split()))
+    
+    result = largestPermutation(k, arr)
+    
+    print(' '.join(map(str, result)))
+
+
 def main():
-    cloudy_day()
+    largest_permutation()
     return
 
 
