@@ -1857,8 +1857,37 @@ def day_of_the_programmer():
     print(str(result))
 
 
+def Encryption():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the encryption function below.
+    def encryption(s):
+        s = s.replace(" ", "")
+        rt = math.sqrt(len(s))
+        r_min = math.floor(rt)
+        c_max = math.ceil(rt)
+        if len(s) > (r_min * c_max):
+            r_min += 1
+    
+        result = " ".join(
+            ["".join([s[i * c_max + j] if (i * c_max + j) < len(s) else "" for i in range(r_min)]) for j in
+             range(c_max)])
+    
+        return result
+
+    s = input()
+
+    result = encryption(s)
+    
+    print(str(result))
+
+
 def main():
-    day_of_the_programmer()
+    Encryption()
     return
 
 
