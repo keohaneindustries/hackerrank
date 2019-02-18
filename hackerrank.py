@@ -1778,8 +1778,32 @@ def birthday_chocolate():
     print(str(result))
 
 
+def divisible_sum_pairs():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the divisibleSumPairs function below.
+    def divisibleSumPairs(n, k, ar):
+        return sum([((ar[i] + ar[j]) % k) == 0 for i in range(n - 1) for j in range(i + 1, n)])
+        
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    ar = list(map(int, input().rstrip().split()))
+
+    result = divisibleSumPairs(n, k, ar)
+    
+    print(str(result))
+
+
 def main():
-    birthday_chocolate()
+    divisible_sum_pairs()
     return
 
 
