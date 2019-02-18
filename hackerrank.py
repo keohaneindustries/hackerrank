@@ -1802,8 +1802,40 @@ def divisible_sum_pairs():
     print(str(result))
 
 
+def migratory_birds():
+    import math
+    import os
+    import random
+    import re
+    import sys
+
+    def migratoryBirds(arr):
+        arr.sort()
+        max_c = 1
+        c = 1
+        x0 = arr[0]
+        max_v = x0
+        for x in arr[1:]:
+            if x==x0:
+                c+=1
+                if c>max_c:
+                    max_c = c
+                    max_v = x
+            else:
+                x0=x
+                c=1
+        return max_v
+
+    arr_count = int(input().strip())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = migratoryBirds(arr)
+    
+    print(str(result))
+
 def main():
-    divisible_sum_pairs()
+    migratory_birds()
     return
 
 
