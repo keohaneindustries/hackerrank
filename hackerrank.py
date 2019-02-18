@@ -1834,8 +1834,31 @@ def migratory_birds():
     
     print(str(result))
 
+
+def day_of_the_programmer():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the dayOfProgrammer function below.
+    def dayOfProgrammer(year):
+        if year == 1918:
+            return "26.09.1918"
+        if year % 4 == 0 and (year < 1918 or year % 400 == 0 or year % 100 != 0):
+            return "12.09.%s" % year
+        return "13.09.%s" % year
+
+    year = int(input().strip())
+
+    result = dayOfProgrammer(year)
+    
+    print(str(result))
+
+
 def main():
-    migratory_birds()
+    day_of_the_programmer()
     return
 
 
