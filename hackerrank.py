@@ -1750,8 +1750,36 @@ def largest_permutation():
     print(' '.join(map(str, result)))
 
 
+def birthday_chocolate():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    def birthday(s, d, m):
+        if m>len(s):
+            return 0
+        else:
+            return sum([sum(s[i:i+m])==d for i in range(len(s)+1-m)])
+
+    n = int(input().strip())
+
+    s = list(map(int, input().rstrip().split()))
+
+    dm = input().rstrip().split()
+
+    d = int(dm[0])
+
+    m = int(dm[1])
+
+    result = birthday(s, d, m)
+    
+    print(str(result))
+
+
 def main():
-    largest_permutation()
+    birthday_chocolate()
     return
 
 
