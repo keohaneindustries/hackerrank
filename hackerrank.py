@@ -1952,8 +1952,63 @@ def modifed_kaprekar():
     print(kaprekarNumbers(p, q))
 
 
+def emas_supercomputer():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the twoPluses function below.
+    def twoPluses(grid):
+        
+        def _get_radius(c,r,grid):
+            if grid[r][c] == "B":
+                yield (0, None)
+            else:
+                ret_l = [(r,c)]
+                yield (1, ret_l)
+                col = [i[c] for i in grid]
+                row = grid[r]
+                n = r+1
+                s = r-1
+                e = c+1
+                w = c-1
+                length = 3
+                while (0<=n<len(grid)) and (0<=s<len(grid)) and (0<=e<len(grid[0])) and (0<=w<len(grid[0])):
+                    gn = grid[n][c]
+                    gs = grid[s][c]
+                    ge = grid[r][e]
+                    gw = grid[r][w]
+                    if gn==gs==ge==gw=="G":
+                        ret_l.extend([(n,c),(s,c),(e,r),(w,r)])
+                        yield (length, ret_l)
+                    length+=2
+
+        all_rads = [list(_get_radius(c, r, grid)) for r in range(len(grid)) for c in range(len(grid[0]))]
+             
+        
+        
+        return
+
+    nm = input().split()
+
+    n = int(nm[0])
+
+    m = int(nm[1])
+
+    grid = []
+
+    for _ in range(n):
+        grid_item = input()
+        grid.append(grid_item)
+
+    result = twoPluses(grid)
+    
+    print(str(result))
+
 def main():
-    modifed_kaprekar()
+    bomberman()
     return
 
 
