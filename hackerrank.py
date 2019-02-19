@@ -1886,8 +1886,55 @@ def Encryption():
     print(str(result))
 
 
+def bigger_is_greater():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the biggerIsGreater function below.
+    def biggerIsGreater(w):
+    
+        l = [s for s in w]
+        r = l.copy()
+        r.reverse()
+        s = l.copy()
+        s.sort()
+        if s == r:
+            return 'no answer'
+    
+        greater = False
+        i = len(l) - 1
+        while not greater:
+            if l[i - 1] < l[i]:
+                pivot = l[i-1]
+                end = l[i:]
+                for j in range(len(end)):
+                    if end[-(j+1)]>pivot:
+                        swap = end.pop(len(end)-(j+1))
+                        break
+                end.append(pivot)
+                end.sort()
+                res = l[:i - 1] + [swap] + end
+                greater = True
+            else:
+                i -= 1
+    
+        return "".join(res)
+
+    T = int(input())
+
+    for T_itr in range(T):
+        w = input()
+    
+        result = biggerIsGreater(w)
+        
+        print(result)
+
+
 def main():
-    Encryption()
+    bigger_is_greater()
     return
 
 
