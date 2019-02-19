@@ -1961,54 +1961,76 @@ def emas_supercomputer():
     
     # Complete the twoPluses function below.
     def twoPluses(grid):
+    
+        def _common_member(a, b):
+            a_set = set(a)
+            b_set = set(b)
+            if (a_set & b_set):
+                return True
+            else:
+                return False
         
         def _get_radius(c,r,grid):
             if grid[r][c] == "B":
                 yield (0, None)
             else:
                 ret_l = [(r,c)]
-                yield (1, ret_l)
+                yield (1, ret_l.copy())
                 col = [i[c] for i in grid]
                 row = grid[r]
-                n = r+1
-                s = r-1
+                n = r-1
+                s = r+1
                 e = c+1
                 w = c-1
                 length = 3
-                while (0<=n<len(grid)) and (0<=s<len(grid)) and (0<=e<len(grid[0])) and (0<=w<len(grid[0])):
-                    gn = grid[n][c]
-                    gs = grid[s][c]
-                    ge = grid[r][e]
-                    gw = grid[r][w]
-                    if gn==gs==ge==gw=="G":
+                cont = True
+                while cont and (0<=n<len(grid)) and (0<=s<len(grid)) and (0<=e<len(grid[0])) and (0<=w<len(grid[0])):
+                    if grid[n][c] == grid[s][c] == grid[r][e] == grid[r][w] == "G":
                         ret_l.extend([(n,c),(s,c),(e,r),(w,r)])
-                        yield (length, ret_l)
+                        yield (2*length-1, ret_l.copy())
+                    else:
+                        cont = False
                     length+=2
+                    n-=1
+                    s+=1
+                    e+=1
+                    w-=1
+                
 
         all_rads = [list(_get_radius(c, r, grid)) for r in range(len(grid)) for c in range(len(grid[0]))]
-             
+        all_rads_squash = [item for sublist in all_rads for item in sublist]
+        all_rads_clean = [x for x in all_rads_squash if x[0] > 0]
+        all_rads_clean.sort(reverse=True)
+
+        max_c = 0
+        for i, (v0, l0) in enumerate(all_rads_clean[:-1]):
+            for j1, (v1, l1) in enumerate(all_rads_clean[i + 1:]):
+                if v0 * v1 > max_c:
+                    if not _common_member(l0, l1):
+                        max_c = v0 * v1
         
-        
-        return
+        return max_c
 
-    nm = input().split()
+    with open('input01.txt', 'r') as fptr:
+    
+        nm = fptr.readline().rstrip().split()
 
-    n = int(nm[0])
+        n = int(nm[0])
+    
+        m = int(nm[1])
 
-    m = int(nm[1])
+        grid = []
 
-    grid = []
-
-    for _ in range(n):
-        grid_item = input()
-        grid.append(grid_item)
+        for _ in range(n):
+            grid_item = fptr.readline().rstrip()
+            grid.append(grid_item)
 
     result = twoPluses(grid)
     
     print(str(result))
 
 def main():
-    bomberman()
+    emas_supercomputer()
     return
 
 
