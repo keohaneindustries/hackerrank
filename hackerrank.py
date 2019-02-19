@@ -1933,8 +1933,27 @@ def bigger_is_greater():
         print(result)
 
 
+def modifed_kaprekar():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    # Complete the kaprekarNumbers function below.
+    def kaprekarNumbers(p, q):
+        res = [str(r) for r in (n if sum(map(int, [str(n ** 2)[:int(len(str(n ** 2)) / 2)], str(n ** 2)[int(len(str(n ** 2)) / 2):]] if len(str(n ** 2))>1 else [str(n ** 2)])) == n else None for n in range(p,q+1)) if r is not None]
+        return " ".join(res) if len(res)>0 else "INVALID RANGE"
+
+    p = int(input())
+
+    q = int(input())
+
+    print(kaprekarNumbers(p, q))
+
+
 def main():
-    bigger_is_greater()
+    modifed_kaprekar()
     return
 
 
