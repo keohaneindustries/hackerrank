@@ -2029,8 +2029,64 @@ def emas_supercomputer():
     
     print(str(result))
 
+
+def larrys_array():
+    import math
+    import os
+    import random
+    import re
+    import sys
+    
+    def _final_three(A, A_sorted):
+        if A==A_sorted:
+            return "YES"
+        for a in range(3):
+            A = _rotate(A, len(A)-3)
+            if A == A_sorted:
+                return "YES"
+        return "NO"
+    
+    def _rotate(A, sort_ix):
+        # s = A[sort_ix:sort_ix+3]
+        # A[sort_ix:sort_ix + 3] = s[1:]+[s[0]]
+        A[sort_ix:sort_ix + 3] = A[sort_ix+1:sort_ix+3]+[A[sort_ix]]
+        return A
+    
+    # Complete the larrysArray function below.
+    def larrysArray(A):
+        A_sorted = A.copy()
+        A_sorted.sort()
+        
+        for i in range(1,len(A)-1):
+            if i==(len(A)-2):
+                return _final_three(A, A_sorted)
+            else:
+                if A == A_sorted:
+                    return "YES"
+                ix = A.index(i)
+                while ix > (i-1):
+                    sort_ix = max([i-1,ix-2])
+                    A = _rotate(A, sort_ix)
+                    ix = A.index(i)
+
+    with open('input01.txt', 'r') as fptr:
+        
+        t = int(fptr.readline().rstrip())
+    
+        for t_itr in range(t):
+            n = int(fptr.readline().rstrip())
+            
+            A = list(map(int, fptr.readline().rstrip().split()))
+
+            result = larrysArray(A)
+
+            print(str(result))
+    
+    return
+
+
 def main():
-    emas_supercomputer()
+    larrys_array()
     return
 
 
