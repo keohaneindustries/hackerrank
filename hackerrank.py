@@ -1986,7 +1986,7 @@ def emas_supercomputer():
                 cont = True
                 while cont and (0<=n<len(grid)) and (0<=s<len(grid)) and (0<=e<len(grid[0])) and (0<=w<len(grid[0])):
                     if grid[n][c] == grid[s][c] == grid[r][e] == grid[r][w] == "G":
-                        ret_l.extend([(n,c),(s,c),(e,r),(w,r)])
+                        ret_l.extend([(n,c),(s,c),(r,e),(r,w)])
                         yield (2*length-1, ret_l.copy())
                     else:
                         cont = False
