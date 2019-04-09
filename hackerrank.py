@@ -2146,8 +2146,41 @@ def sparse_arrays():
         print(str(r))
 
 
+def array_manipulation():
+    def arrayManipulation(n, queries):
+        
+        arr = [0]*(n+1)
+        for q in queries:
+            a,b,k = q
+            arr[a - 1] += k
+            arr[b] -= k
+        
+        sm = 0
+        max_val = 0
+        for x in arr:
+            sm += x
+            max_val = sm if sm > max_val else max_val
+            
+        return max_val
+
+    nm = input().split()
+
+    n = int(nm[0])
+
+    m = int(nm[1])
+
+    queries = []
+
+    for _ in range(m):
+        queries.append(list(map(int, input().rstrip().split())))
+
+    result = arrayManipulation(n, queries)
+    
+    print(str(result))
+
+
 def main():
-    sparse_arrays()
+    array_manipulation()
     return
 
 
