@@ -2114,8 +2114,40 @@ def zig_zag_sequence():
     return
 
 
+def sparse_arrays():
+    def matchingStrings(strings, queries):
+        import collections
+        
+        values = collections.defaultdict(int)
+        for s in strings:
+            values[s] += 1
+        
+        return [values[q] for q in queries]
+
+    strings_count = int(input())
+
+    strings = []
+
+    for _ in range(strings_count):
+        strings_item = input()
+        strings.append(strings_item)
+
+    queries_count = int(input())
+
+    queries = []
+
+    for _ in range(queries_count):
+        queries_item = input()
+        queries.append(queries_item)
+
+    res = matchingStrings(strings, queries)
+    
+    for r in res:
+        print(str(r))
+
+
 def main():
-    zig_zag_sequence()
+    sparse_arrays()
     return
 
 
